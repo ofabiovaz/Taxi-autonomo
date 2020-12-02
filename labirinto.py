@@ -5,6 +5,7 @@ from utils import floor
 from turtle import *
 import numpy as np
 from celula import Celula
+from random import choice
 
 # Acrescenta esta biblioteca ao labirinto
 from matriz import Matriz
@@ -67,7 +68,15 @@ class Labirinto:
                     self.desenhar_celula(celula, 'black')
 
                     #self.desenhar_pastilha(celula, 'yellow')
-                    self.desenhar_divisoria(celula, 'yellow')
+
+                '''else:
+                    # Em caso positivo, transforma em coordenada Turtle.
+                    # Atenção: Numa coordenada Turtle (x,y), o eixo x refere-se à coluna e o eixo y à linha
+                    # Numa coordenada da matriz (lin, col), o primeiro elemento é a linha e o segundo a coluna
+
+                    celula = self.criar_celula(coord_matr=(lin, col))
+                    # Pinta a celula na posição (x,y) com a cor especificada
+                    self.desenhar_casas(celula)'''
 
     def cel_aleatoria(self):
         """ Retorna os índices de uma posição que seja caminho
@@ -123,6 +132,7 @@ class Labirinto:
             self._turtle.left(90)
         self._turtle.end_fill()
         self._turtle.up()
+
 
     def obter_vizinhos(self, celula):
         """ Retorna os vizinhos de uma celula """

@@ -21,11 +21,16 @@ class Agente:
         self._turtle.hideturtle()
 
         # define a cor do agente
-        self._cor = cor
+
         # REQ
         # deve definir a cor do agente aleatoriamente (verde, vermelho, rosa, laranja e marrom)
         # se não for passado no construtor
         # é um gerador de percursos
+        cores = ['green','red','pink','orange','brown']
+
+        cor = choice(cores)
+        self._cor = cor
+
 
         self._waze = None
 
@@ -102,14 +107,15 @@ class Agente:
         # REQ
         # Deve verificar:
         # Se der o passo, continua sendo caminho (lab.eh_caminho())
+        # REQ
+        # Deve verificar:
+        # Se der o passo, a posição estará ocupada? (lab.eh_celula_ocupada())
         if lab.eh_caminho(lin,col) and not(lab.eh_celula_ocupada((lin,col), id_)):
             self._posicao = prox_pos_agente
         else:
             prox_pos_agente = self._posicao
             self.direcao = self.mudar_direcao_aleatoriamente()
-        # REQ
-        # Deve verificar:
-        # Se der o passo, a posição estará ocupada? (lab.eh_celula_ocupada())
+
 
         # REQ
         # Definir qual é a próxima posição do agente
@@ -147,6 +153,8 @@ class Agente:
             self._waze = Waze(self._labirinto)
             self._waze.add_destino(destino)
 
+
+
     def ir_a(self, destino):
         lab = self._labirinto # Para facilitar a leitura
         pos_agente = self._posicao
@@ -163,4 +171,6 @@ class Agente:
         if (not waze.esta_sem_coord()):
             self._posicao = waze.obter_prox_coord()
             self.desenhar_se()
+
+
         return False

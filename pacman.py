@@ -6,18 +6,24 @@ from labirinto import Labirinto
 from turtle import *
 from time import sleep
 
+
 def main():
     # Simulação 1
-    um_agente_percorre_tudo()
+    #um_agente_percorre_tudo()
 
     # Simulação 2
-    um_agente_vagueia()
+    #um_agente_vagueia()
 
     # Simulação 3
-    todos_vagueiam()
+    #todos_vagueiam()
 
     # Simulação 4
-    Cagente_com_um_destino()
+    #agente_com_um_destino()
+
+    # Simulação 5
+    agente_com_n_destino()
+
+
 
     done()
 
@@ -32,7 +38,7 @@ def um_agente_percorre_tudo():
     id = 0
     agente = lab.add_pacman(id)
 
-    intervalo_entre_frames = 0.01
+    intervalo_entre_frames = 0.1
 
     chegou_ao_fim = False
     while (not chegou_ao_fim):
@@ -64,11 +70,11 @@ def todos_vagueiam():
     id = 0
     pacman = lab.add_pacman(id)
 
-    n_fantasmas = 10
+    n_fantasmas = 20
     for id in range(1, n_fantasmas):
         f = lab.add_fantasma(id)
 
-    n_frames = 500
+    n_frames = 5000
     intervalo_entre_frames = 0.1
 
     agentes = lab.agentes
@@ -102,5 +108,46 @@ def agente_com_um_destino():
         # Atualiza "frame"
         update()
         sleep(intervalo_entre_frames)
+
+def agente_com_n_destino():
+    """ Agente caminha para um destino aleatoriamente sorteado """
+    n = 10
+    dimensao_da_matriz = 20
+    lab = Labirinto(dimensao_da_matriz)
+    id = 0
+    agente = lab.add_pacman(id)
+    origem = agente._posicao
+    destino = lab.cel_aleatoria()
+    chegou_ao_destino = False
+
+    for i in range(n):
+
+        lab.desenhar_celula(origem, 'red')
+
+        lab.desenhar_celula(destino, 'red')
+
+        intervalo_entre_frames = 0.4
+
+
+        while (not chegou_ao_destino):
+            chegou_ao_destino = agente.ir_a(destino)
+            # Atualiza "frame"
+            update()
+            sleep(intervalo_entre_frames)
+        lab.desenhar_celula(origem, 'black')
+        origem = destino
+        destino = lab.cel_aleatoria()
+        chegou_ao_destino = False
+        agente._waze.add_destino(destino)
+        agente._waze.gerar_rota(origem)
+
+
+
+
+
+
+
+
+
 
 main()
